@@ -23,9 +23,9 @@ def open_app():
     chat_log = tk.Text(root, state=tk.DISABLED, wrap="word")
     chat_log.pack(padx=10, pady=10, expand=True, fill='both')
     # TODO: load data.json
-    with open("data.json", "r") as f:
-        data = f.read()
-        chat_log.insert(tk.END, data)
+    # with open("data.json", "r") as f:
+    #     data = f.read()
+    #     chat_log.insert(tk.END, data)
     entry_frame = tk.Frame(root)
     entry_frame.pack(pady=5)
 
