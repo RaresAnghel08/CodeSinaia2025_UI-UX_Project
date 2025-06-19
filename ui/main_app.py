@@ -15,6 +15,12 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 def open_app():
+    
+    # daca nu exista fisierul json, se creeaza unul nou
+    if not Path("data/history.json").exists():
+        with open("data/history.json", "w", encoding="utf-8") as f:
+            json.dump([], f, indent=2, ensure_ascii=False)
+    
     # Main App
     root = tk.Tk()
     #TODO
