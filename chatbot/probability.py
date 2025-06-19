@@ -74,7 +74,14 @@ RULES = [
 ]
 
 def message_probability(user_message, keywords, single_response=False, required=[]):
+
+    #TODO: Calculează probabilitatea mesajului message_certainty
+    #pt fiecare cuvant din mesaj care apare in recognised_words
+    #message_certainty este incrementat
     message_certainty = sum(1 for word in user_message if word in keywords)
+    
+    #TODO: Calculează match_ratio ca raportul dintre message_certainty și numărul de cuvinte din keywords
+    #dacă keywords este gol, setăm match_ratio la 0
     match_ratio = message_certainty / len(keywords) if keywords else 0
     
     if required:
@@ -90,6 +97,8 @@ def check_all_messages(message):
     best_response = None
 
     for rule in RULES:
+        #TODO: Calculează probabilitatea mesajului pentru fiecare regulă
+        #folosind funcția message_probability definită mai sus
         prob = message_probability(
             message,
             rule["keywords"],
@@ -97,6 +106,8 @@ def check_all_messages(message):
             rule.get("required", [])
         )
 
+        #TODO: dacă prob este mai mare decât highest_prob,
+        # actualizează best_response și highest_prob 
         if prob > highest_prob:
             highest_prob = prob
             best_response = rule["response"]
@@ -104,9 +115,10 @@ def check_all_messages(message):
     # Dacă best_response e funcție, o apelezi
     if callable(best_response):
         return best_response()
+    #TODO: returneaza raspunsul, fie cel de eroare, fie cel gasit
     return best_response if highest_prob > 0 else unknown()
 
 def get_response(user_input):
-    
+    #TODO: apeleaza functia split pentru a împărți mesajul în cuvinte
     split_message = re.split(r'\s+|[,;?.-]\s*', user_input.lower())
     return check_all_messages(split_message)
