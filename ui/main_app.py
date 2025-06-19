@@ -38,10 +38,10 @@ def open_app():
 
     # Background and layout
     canvas.create_rectangle(0.0, 0.0, 800.0, 600.0, fill="#D9D9D9", outline="")
-    canvas.create_rectangle(30.0, 73.0, 770.0, 434.0, fill="#C4C4C4", outline="")
+    canvas.create_rectangle(30.0, 73.0, 770.0, 434.0, fill="#C5C5C5", outline="")
 
     # Chat log (Text widget)
-    chat_log = Text(root, bg="#C4C4C4", bd=0, state=tk.DISABLED, wrap="word")
+    chat_log = Text(root, bg="#C5C5C5", bd=0, state=tk.DISABLED, wrap="word")
     chat_log.place(x=30.0, y=73.0, width=740.0, height=361.0)
 
     # Entry box
@@ -50,7 +50,7 @@ def open_app():
     entry.configure(bg="#C5C5C5", font=("Inter", 14 * -1), highlightthickness=0, relief="flat")
 
     # Footer bar
-    canvas.create_rectangle(-4.0, 566.0, 800.0, 570.0, fill="#C4C4C4", outline="")
+    canvas.create_rectangle(-4.0, 566.0, 800.0, 570.0, fill="#C5C5C5", outline="")
     canvas.create_text(323.0, 576.0, anchor="nw", text="™CodeSinaia 2025", fill="#000000", font=("Inter", 14 * -1))
     canvas.create_text(30.0, 575.0, anchor="nw", text="©2025 Inproted", fill="#000000", font=("Inter", 14 * -1))
     canvas.create_text(260.0, 17.0, anchor="nw", text="MY CHATBOT APP", fill="#000000", font=("Inter", 32 * -1))
