@@ -5,7 +5,7 @@ import json
 import webbrowser
 import os
 
-from chatbot.messages import send_message, clear_chat
+from ux.messages import send_message, clear_chat
 from ux.json_handling import load_chat, save_chat
 
 OUTPUT_PATH = Path(__file__).parent
@@ -22,12 +22,13 @@ def open_app():
         with open("data/history.json", "w", encoding="utf-8") as f:
             json.dump([], f, indent=2, ensure_ascii=False)
     
-    # Main App
     root = tk.Tk()
+    
     #TODO
     # #upper left image logo
     # root.iconbitmap('logo.ico')  # Ensure you have a logo.ico file in the same directory
     root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
+    
     window_width = 800
     window_height = 600
 
