@@ -4,7 +4,8 @@ from pathlib import Path
 import json
 import webbrowser
 
-from chatbot.messages import send_message, clear_chat  # Asigură-te că aceste funcții sunt definite corect
+from chatbot.messages import send_message, clear_chat
+from chatbot.json_handling import load_chat, save_chat
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("assets")
@@ -12,42 +13,6 @@ ASSETS_PATH = OUTPUT_PATH / Path("assets")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-
-
-def load_chat(chat_log):
-    try:
-        with open("data/data.json", "r", encoding="utf-8") as f:
-            messages = json.load(f)
-        if not messages:
-            messagebox.showinfo("Istoric gol", "Istoricul este gol.")
-            return
-        chat_log.config(state=tk.NORMAL)
-        chat_log.delete("1.0", tk.END)
-        for msg in messages:
-            chat_log.insert(tk.END, f"{msg['sender']}: {msg['text']}\n")
-        chat_log.config(state=tk.DISABLED)
-    except FileNotFoundError:
-        chat_log.config(state=tk.NORMAL)
-        chat_log.insert(tk.END, "Fisierul 'data.json' nu a fost găsit.\n")
-        with open("data/data.json", "w", encoding="utf-8") as f:
-            json.dump([], f, indent=2, ensure_ascii=False)
-        chat_log.insert(tk.END, "Un fișier nou a fost creat.\n")
-        chat_log.config(state=tk.DISABLED)
-    except json.JSONDecodeError:
-        chat_log.config(state=tk.NORMAL)
-        chat_log.insert(tk.END, "Eroare la citirea fișierului JSON.\n")
-        chat_log.config(state=tk.DISABLED)
-
-
-def save_chat(chat_log):
-    lines = chat_log.get("1.0", tk.END).strip().split("\n")
-    messages = []
-    for line in lines:
-        if ": " in line:
-            sender, text = line.split(": ", 1)
-            messages.append({"sender": sender, "text": text})
-    with open("data/data.json", "w", encoding="utf-8") as f:
-        json.dump(messages, f, indent=2, ensure_ascii=False)
 
 def open_app():
     # Main App
@@ -82,7 +47,6 @@ def open_app():
     # Entry box
     entry = Entry(root, bd=0)
     entry.place(x=30.0, y=465.0, width=740.0, height=40.0)
-    # entry background color c5c5c5
     entry.configure(bg="#C5C5C5", font=("Inter", 14 * -1), highlightthickness=0, relief="flat")
 
     # Footer bar
@@ -128,7 +92,7 @@ def open_app():
                         relief="flat", bg="#D9D9D9", activebackground="#D9D9D9")
     button_save.place(x=640.0, y=516.0, width=130.0, height=40.0)
 
-    # GitHub button (not connected to functionality)
+    # GitHub button
     button_image_github = PhotoImage(file=relative_to_assets("button_github.png"))
     button_github = Button(
         image=button_image_github,

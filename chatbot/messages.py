@@ -37,8 +37,6 @@ def send_message(entry, chat_log):
     bot_response = get_response(user_message)
     chat_log.insert(tk.END, f"Bot: {bot_response}\n\n")
     
-    # TODO: save user_message to data.json in a json format
-    
     chat_log.config(state=tk.DISABLED)
     entry.delete(0, tk.END)
     
@@ -46,9 +44,4 @@ def clear_chat(chat_log):
     chat_log.config(state=tk.NORMAL)
     chat_log.delete('1.0', tk.END)
     chat_log.config(state=tk.DISABLED)
-
-    # TODO: clear the data.json file
-    # clear data.json
-    # with open("data.json", "w") as f:
-    #     f.write("{}")
-
+    
