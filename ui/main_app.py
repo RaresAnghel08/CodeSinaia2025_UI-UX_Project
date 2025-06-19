@@ -11,6 +11,7 @@ from ux.json_handling import load_chat, save_chat
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
 
+figma_link = "https://www.figma.com/design/cuNtrpjCHpGHbauYEfwbeJ/CodeSinaia_UI_Test?node-id=1-5&t=8cbRCtOGMdsNafUU-0"
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
