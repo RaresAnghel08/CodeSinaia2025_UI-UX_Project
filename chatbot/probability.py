@@ -3,6 +3,14 @@ try:
     from .responses import get_custom_response, unknown
 except ImportError:
     from responses import get_custom_response, unknown
+import random
+
+colors = ["blue", "red", "green", "yellow", "purple", "pink"]
+hearts = ["💙", "❤️", "💚", "💛", "💜", "🩷"]
+
+def favorite_color_response():
+    idx = random.randint(0, len(colors) - 1)
+    return f"My favorite color is {colors[idx]} {hearts[idx]}"
 
 RULES = [
     {
@@ -54,13 +62,21 @@ RULES = [
         "keywords": [],
         "response": unknown(),
         "single_response": True
+    },
+    # TODO: creeaza tu un raspuns custom pentru un topic ales
+    # exempmplu: care este culoarea ta preferata?
+    {
+        "keywords": ["favorite", "color"],
+        "required": ["color"],
+        "response": favorite_color_response,
+        "single_response": True
     }
 ]
 
 def message_probability(user_message, keywords, single_response=False, required=[]):
     message_certainty = sum(1 for word in user_message if word in keywords)
     match_ratio = message_certainty / len(keywords) if keywords else 0
-
+    
     if required:
         if not all(word in user_message for word in required):
             return 0
@@ -85,8 +101,12 @@ def check_all_messages(message):
             highest_prob = prob
             best_response = rule["response"]
 
+    # Dacă best_response e funcție, o apelezi
+    if callable(best_response):
+        return best_response()
     return best_response if highest_prob > 0 else unknown()
 
 def get_response(user_input):
+    
     split_message = re.split(r'\s+|[,;?.-]\s*', user_input.lower())
     return check_all_messages(split_message)
