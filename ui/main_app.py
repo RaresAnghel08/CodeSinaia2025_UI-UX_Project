@@ -3,12 +3,13 @@ from tkinter import Canvas, Entry, Text, Button, PhotoImage, messagebox
 from pathlib import Path
 import json
 import webbrowser
+import os
 
 from chatbot.messages import send_message, clear_chat
-from chatbot.json_handling import load_chat, save_chat
+from ux.json_handling import load_chat, save_chat
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("assets")
+ASSETS_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -26,7 +27,7 @@ def open_app():
     #TODO
     # #upper left image logo
     # root.iconbitmap('logo.ico')  # Ensure you have a logo.ico file in the same directory
-    
+    root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
     window_width = 800
     window_height = 600
 

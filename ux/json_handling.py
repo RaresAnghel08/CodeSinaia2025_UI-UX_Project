@@ -1,32 +1,27 @@
 import json
 import tkinter as tk
 from tkinter import messagebox
-
+from ux.alerts import empty_message_alert, save_success_alert, load_success_alert, clear_success_alert, error_alert, file_not_found_alert, json_decode_error_alert, no_history_alert
 
 def load_chat(chat_log):
     try:
         with open("data/history.json", "r", encoding="utf-8") as f:
             messages = json.load(f)
         if not messages:
-            messagebox.showinfo("Istoric gol", "Istoricul este gol.")
+            no_history_alert()
             return
+        else:
+            load_success_alert()
         chat_log.config(state=tk.NORMAL)
         chat_log.delete("1.0", tk.END)
         for msg in messages:
             chat_log.insert(tk.END, f"{msg['sender']}: {msg['text']}\n")
         chat_log.config(state=tk.DISABLED)
     except FileNotFoundError:
-        chat_log.config(state=tk.NORMAL)
-        chat_log.insert(tk.END, "Fisierul 'data/history.json' nu a fost găsit.\n")
-        with open("data/history.json", "w", encoding="utf-8") as f:
-            json.dump([], f, indent=2, ensure_ascii=False)
-        chat_log.insert(tk.END, "Un fișier nou a fost creat.\n")
-        chat_log.config(state=tk.DISABLED)
+        file_not_found_alert()
     except json.JSONDecodeError:
-        chat_log.config(state=tk.NORMAL)
-        chat_log.insert(tk.END, "Eroare la citirea fișierului JSON.\n")
+        json_decode_error_alert()
         chat_log.config(state=tk.DISABLED)
-
 
 def save_chat(chat_log):
     lines = chat_log.get("1.0", tk.END).strip().split("\n")
@@ -37,3 +32,4 @@ def save_chat(chat_log):
             messages.append({"sender": sender, "text": text})
     with open("data/history.json", "w", encoding="utf-8") as f:
         json.dump(messages, f, indent=2, ensure_ascii=False)
+    save_success_alert()
