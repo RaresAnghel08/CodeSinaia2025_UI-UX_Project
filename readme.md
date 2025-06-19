@@ -1,56 +1,111 @@
-UI & UX Implementation /w Figma & Tkinter
-============
+UI & UX Implementation with Figma & Tkinter
+===========================================
 
-This project implements a [brief description of your app/project, e.g., "modern UI/UX demo for Code Sinaia 2025"].
-The working version of the project is available under the [branch name or deployment link].
-The main branch contains the core components and structure, while feature branches may contain additional functionality.
+This project implements a modern UI/UX demo for Code Sinaia 2025, showcasing the integration of Figma design concepts with a Python Tkinter desktop application.  
+The working version of the project is available under the [final-version](https://github.com/RaresAnghel08/CodeSinaia2025_UI-UX_Project/) branch.  
+The main branch contains the core components and structure, while feature branches may contain additional or experimental functionality.
 
 ## Project Scope
 
-This project was made for the [Code Sinaia 2025](https://sites.google.com/view/codesinaia/home) programming school.
-The aim of this project is to help students get introduced to [technologies used, Python, Figma, Tkinter, UI/UX design, etc.].
+This project was made for the [Code Sinaia 2025](https://sites.google.com/view/codesinaia/home) programming school.  
+The aim of this project is to help students get introduced to Python, Figma, Tkinter, and UI/UX design principles.
 
 ## Project Aims
 
-The aims of this project are to introduce students to [main concepts: e.g., component-based development, props, state management, UI/UX best practices, etc.].
-Students will be tasked with [main tasks: e.g., creating custom components, passing data via props, implementing data fetching, designing user interfaces, etc.].
-Additional tasks may include [any extra features: e.g., creating their own components, adding interactivity, etc.].
+The aims of this project are to introduce students to:
+- Component-based UI development in Python with Tkinter
+- Translating Figma designs into functional desktop interfaces
+- UI/UX best practices (layout, color, typography, feedback, accessibility)
+- Event-driven programming and state management in Tkinter
+- Modular code structure and reusability
+
+Students will be tasked with:
+- Creating custom Tkinter components (widgets)
+- Implementing navigation between screens (Splash, Main App, Chatbot, etc.)
+- Passing and managing data between components
+- Designing and applying consistent styles based on Figma prototypes
+- Implementing a simple chatbot with probability-based responses
+- Adding interactivity (buttons, input fields, dynamic content)
+- (Optional) Extending the app with new features or improved UX
 
 ## Documentation
 
-The following section documents the structure of the data and components used in this project.
+### Main Functionalities
 
-### Data
+- **Splash Screen:**  
+  Displays an animated splash/loading screen on startup.
 
-The main object is called `data` and has the following properties:
+- **Main Application Window:**  
+  The primary interface, styled according to Figma designs, with navigation and content areas.
 
-- [property1]: [description]
-- [property2]: [description]
-- [property3]: [description]
-- [nestedProperty]:
-  - [subProperty1]: [description]
-  - [subProperty2]: [description]
-  - ...
+- **Chatbot Module:**  
+  - Accepts user input and displays chatbot responses.
+  - Uses probability-based logic to generate responses.
+  - Supports clearing the chat and sending messages.
 
-### [Any Custom Types or Objects]
+- **Theme & Style Management:**  
+  - Centralized color palette and font management.
+  - Responsive layout adjustments.
 
-The `[object/type name]` object contains the following properties:
+- **Error Handling:**  
+  - User-friendly error messages for invalid input or system errors.
 
-- [property1]
-- [property2]
-- ...
+- **Extensible Component Structure:**  
+  - Easy to add new screens or widgets.
+
+### Data Structure
+
+The main data objects used in the app include:
+
+- **User Message Object:**
+  - `text`: The message content (string)
+  - `timestamp`: Time sent (datetime)
+  - `sender`: "user" or "bot"
+
+- **Chatbot Response Object:**
+  - `text`: The response content (string)
+  - `probability`: Confidence/probability score (float)
+  - `intent`: The detected intent/category (string)
+
+- **Theme Object:**
+  - `primary_color`: Main color used in the app
+  - `secondary_color`: Accent color
+  - `font_family`: Default font
+  - `font_size`: Default font size
+
+### Example Component Structure
+
+- `main/`
+  - `main.py` — Entry point, launches the app
+- `ui/`
+  - `splash_screen.py` — Splash screen logic
+  - `main_app.py` — Main window and navigation
+- `chatbot/`
+  - `messages.py` — Message handling logic
+  - `probability.py` — Response probability logic
+  - `responses.py` — Predefined responses and intent mapping
+- `assets/`
+  - Images, icons, and Figma exports
+- `themes/`
+  - Color and style definitions
 
 ## References
 
-[List any references, resources, or data sources used in your project, e.g., icon sets, APIs, documentation links, etc.]
+- [Tkinter Documentation](https://docs.python.org/3/library/tkinter.html)
+- [Figma](https://www.figma.com/)
+- [Python Official Documentation](https://docs.python.org/3/)
+- [Code Sinaia 2025](https://sites.google.com/view/codesinaia/home)
 
 ---
 
-*Replace the placeholders above with your actual project details for a complete and accurate README!*
-
 ## How to Start the App
 
-Run the following command:
+Run the following command from the root directory of the project:
 
 ```bash
 python -m main.main
+```
+
+Make sure you have all dependencies installed and that you are running the command from the folder containing the `main` directory.
+
+---

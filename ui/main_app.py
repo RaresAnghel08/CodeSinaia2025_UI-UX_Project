@@ -1,7 +1,18 @@
 import tkinter as tk
-from chatbot.messages import send_message, clear_chat
+from tkinter import Canvas, Entry, Text, Button, PhotoImage, messagebox
+from pathlib import Path
 import json
-from tkinter import messagebox
+import webbrowser
+
+from chatbot.messages import send_message, clear_chat  # Asigură-te că aceste funcții sunt definite corect
+
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path("assets")
+
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+
 
 def load_chat(chat_log):
     try:
@@ -18,39 +29,34 @@ def load_chat(chat_log):
     except FileNotFoundError:
         chat_log.config(state=tk.NORMAL)
         chat_log.insert(tk.END, "Fisierul 'data.json' nu a fost găsit.\n")
-        # create the file if it doesn't exist
         with open("data/data.json", "w", encoding="utf-8") as f:
             json.dump([], f, indent=2, ensure_ascii=False)
         chat_log.insert(tk.END, "Un fișier nou a fost creat.\n")
-        chat_log.insert(tk.END, "Încercați din nou să încărcați istoricul.\n")
-        chat_log.insert(tk.END, "Dacă problema persistă, verificați permisiunile fișierului.\n")
         chat_log.config(state=tk.DISABLED)
     except json.JSONDecodeError:
         chat_log.config(state=tk.NORMAL)
         chat_log.insert(tk.END, "Eroare la citirea fișierului JSON.\n")
         chat_log.config(state=tk.DISABLED)
-        
+
+
 def save_chat(chat_log):
     lines = chat_log.get("1.0", tk.END).strip().split("\n")
     messages = []
-
     for line in lines:
         if ": " in line:
             sender, text = line.split(": ", 1)
             messages.append({"sender": sender, "text": text})
-
     with open("data/data.json", "w", encoding="utf-8") as f:
         json.dump(messages, f, indent=2, ensure_ascii=False)
-        
+
 def open_app():
+    # Main App
     root = tk.Tk()
-    root.title("Chatbot")
-    
     #TODO
     # #upper left image logo
     # root.iconbitmap('logo.ico')  # Ensure you have a logo.ico file in the same directory
     
-    window_width = 600
+    window_width = 800
     window_height = 600
 
     screen_width = root.winfo_screenwidth()
@@ -60,57 +66,81 @@ def open_app():
     splash_y = (screen_height // 2) - (window_height // 2)
 
     root.geometry(f"{window_width}x{window_height}+{splash_x}+{splash_y}")
+    root.configure(bg="#D9D9D9")
+    root.title("Code Sinaia 2025 - Chatbot App")
+    canvas = Canvas(root, bg="#D9D9D9", height=600, width=800, bd=0, highlightthickness=0, relief="ridge")
+    canvas.place(x=0, y=0)
 
-    chat_log = tk.Text(root, state=tk.DISABLED, wrap="word", bg="#D9D9D9")
-    chat_log.pack(padx=10, pady=10, expand=True, fill='both')
-    # TODO: load data.json
-    # with open("data.json", "r") as f:
-    #     data = f.read()
-    #     chat_log.insert(tk.END, data)
-    entry_frame = tk.Frame(root)
-    entry_frame.pack(pady=5)
+    # Background and layout
+    canvas.create_rectangle(0.0, 0.0, 800.0, 600.0, fill="#D9D9D9", outline="")
+    canvas.create_rectangle(30.0, 73.0, 770.0, 434.0, fill="#C4C4C4", outline="")
 
-    entry = tk.Entry(entry_frame, width=50)
-    entry.pack(side=tk.LEFT, padx=(0, 10))
+    # Chat log (Text widget)
+    chat_log = Text(root, bg="#C4C4C4", bd=0, state=tk.DISABLED, wrap="word")
+    chat_log.place(x=30.0, y=73.0, width=740.0, height=361.0)
 
-    # TODO:fa un buton in figma pt a trimite textul / & sterge chatul la care sa ii pui bacground imaginea si action
-    # button_image_input = PhotoImage(file=relative_to_assets("button_input.png"))
-    # Button_input = Button(
-    #     image=button_image_input,
-    #     borderwidth=0,
-    #     highlightthickness=0,
-    #     command=select_input_folder,
-    #     relief="flat",
-    #     activebackground="#D9D9D9",
-    #     background="#D9D9D9"
-    # )
-    send_button = tk.Button(entry_frame, text="Trimite", command=lambda: send_message(entry, chat_log))
-    send_button.pack(side=tk.LEFT)
-    
-    # TODO: optional - sa puna si place la buton
-    # Button_input.place(
-    #     x=22.0,
-    #     y=84.0,
-    #     width=755.0,
-    #     height=56.0
-    # )
+    # Entry box
+    entry = Entry(root, bd=0)
+    entry.place(x=30.0, y=465.0, width=740.0, height=40.0)
+    # entry background color c5c5c5
+    entry.configure(bg="#C5C5C5", font=("Inter", 14 * -1), highlightthickness=0, relief="flat")
 
-    clear_button = tk.Button(entry_frame, text="Clear Chat", command=lambda: clear_chat(chat_log))
-    clear_button.pack(side=tk.LEFT, padx=(10, 0))
+    # Footer bar
+    canvas.create_rectangle(-4.0, 566.0, 800.0, 570.0, fill="#C4C4C4", outline="")
+    canvas.create_text(323.0, 576.0, anchor="nw", text="™CodeSinaia 2025", fill="#000000", font=("Inter", 14 * -1))
+    canvas.create_text(30.0, 575.0, anchor="nw", text="©2025 Inproted", fill="#000000", font=("Inter", 14 * -1))
+    canvas.create_text(260.0, 17.0, anchor="nw", text="MY CHATBOT APP", fill="#000000", font=("Inter", 32 * -1))
 
-    #TODO: alerta daca chatul deja e gol
-    
-    button_frame = tk.Frame(root)
-    button_frame.pack(pady=(5, 10))
+    # Buttons
+    def on_send():
+        send_message(entry, chat_log)
 
-    load_button = tk.Button(button_frame, text="Load Chat", command=lambda: load_chat(chat_log))
-    load_button.pack(side=tk.LEFT, padx=5)
+    def on_clear():
+        clear_chat(chat_log)
 
-    save_button = tk.Button(button_frame, text="Save Chat", command=lambda: save_chat(chat_log))
-    save_button.pack(side=tk.LEFT, padx=5)
-    
-    root.bind('<Return>', lambda event=None: send_message(entry, chat_log))
+    def on_load():
+        load_chat(chat_log)
 
+    def on_save():
+        save_chat(chat_log)
+
+    # Send button
+    button_image_send = PhotoImage(file=relative_to_assets("button_send.png"))
+    button_send = Button(image=button_image_send, borderwidth=0, highlightthickness=0, command=on_send,
+                        relief="flat", bg="#D9D9D9", activebackground="#D9D9D9")
+    button_send.place(x=30.0, y=516.0, width=130.0, height=40.0)
+
+    # Clear button
+    button_image_clear = PhotoImage(file=relative_to_assets("button_clear.png"))
+    button_clear = Button(image=button_image_clear, borderwidth=0, highlightthickness=0, command=on_clear,
+                        relief="flat", bg="#D9D9D9", activebackground="#D9D9D9")
+    button_clear.place(x=233.0, y=515.0, width=130.0, height=40.0)
+
+    # Load button
+    button_image_load = PhotoImage(file=relative_to_assets("button_load.png"))
+    button_load = Button(image=button_image_load, borderwidth=0, highlightthickness=0, command=on_load,
+                        relief="flat", bg="#D9D9D9", activebackground="#D9D9D9")
+    button_load.place(x=436.0, y=516.0, width=130.0, height=40.0)
+
+    # Save button
+    button_image_save = PhotoImage(file=relative_to_assets("button_save.png"))
+    button_save = Button(image=button_image_save, borderwidth=0, highlightthickness=0, command=on_save,
+                        relief="flat", bg="#D9D9D9", activebackground="#D9D9D9")
+    button_save.place(x=640.0, y=516.0, width=130.0, height=40.0)
+
+    # GitHub button (not connected to functionality)
+    button_image_github = PhotoImage(file=relative_to_assets("button_github.png"))
+    button_github = Button(
+        image=button_image_github,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: webbrowser.open("https://github.com/RaresAnghel08/CodeSinaia2025_UI-UX_Project"),
+        relief="flat",
+        bg="#D9D9D9",
+        activebackground="#D9D9D9"
+    )
+    button_github.place(x=709.0, y=570.0, width=61.0, height=26.0)
+
+    root.bind('<Return>', lambda event=None: on_send())
+    root.resizable(False, False)
     root.mainloop()
-
-
