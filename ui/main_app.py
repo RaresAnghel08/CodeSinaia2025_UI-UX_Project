@@ -65,13 +65,10 @@ def open_app():
     # Buttons
     def on_send():
         send_message(entry, chat_log)
-
     def on_clear():
         clear_chat(chat_log)
-
     def on_load():
         load_chat(chat_log)
-
     def on_save():
         save_chat(chat_log)
 
