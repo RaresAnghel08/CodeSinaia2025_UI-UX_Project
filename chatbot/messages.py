@@ -18,7 +18,7 @@ def send_message(entry, chat_log):
     
     bot_response = get_response(user_message)
     chat_log.insert(tk.END, f"Bot: {bot_response}\n\n")
-    
+    chat_log.see("end")
     chat_log.config(state=tk.DISABLED)
     entry.delete(0, tk.END)
     
