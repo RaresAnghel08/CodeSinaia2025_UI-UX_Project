@@ -1,7 +1,7 @@
 import json
 import tkinter as tk
 from tkinter import messagebox
-from ux.alerts import empty_message_alert, save_success_alert, load_success_alert, clear_success_alert, error_alert, file_not_found_alert, json_decode_error_alert, no_history_alert
+from ux.alerts import empty_message_alert, save_success_alert, load_success_alert, json_decode_error_alert, no_history_alert
 
 def load_chat(chat_log):
     try:
@@ -17,8 +17,6 @@ def load_chat(chat_log):
         for msg in messages:
             chat_log.insert(tk.END, f"{msg['sender']}: {msg['text']}\n")
         chat_log.config(state=tk.DISABLED)
-    except FileNotFoundError:
-        file_not_found_alert()
     except json.JSONDecodeError:
         json_decode_error_alert()
         chat_log.config(state=tk.DISABLED)

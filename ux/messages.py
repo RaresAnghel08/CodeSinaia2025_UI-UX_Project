@@ -1,6 +1,6 @@
 import tkinter as tk
 from chatbot.probability import get_response
-from ux.alerts import empty_message_alert, save_success_alert, load_success_alert, clear_success_alert, error_alert, file_not_found_alert
+from ux.alerts import empty_message_alert, clear_success_alert
 def send_message(entry, chat_log):
     
     #TODO: check and alert in a separate windows if empty message
