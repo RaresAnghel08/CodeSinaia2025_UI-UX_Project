@@ -18,6 +18,10 @@ def relative_to_assets(path: str) -> Path:
 
 def open_app():
     
+    # daca nu exista directorul data, se creeaza unul nou
+    if not Path("data").exists():
+        Path("data").mkdir(parents=True, exist_ok=True)
+    
     # daca nu exista fisierul json, se creeaza unul nou
     if not Path("data/history.json").exists():
         with open("data/history.json", "w", encoding="utf-8") as f:
