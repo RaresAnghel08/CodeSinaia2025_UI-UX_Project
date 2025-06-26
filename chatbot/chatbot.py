@@ -1,6 +1,8 @@
 from probability import get_response
 
 while True:
-    if input('You: ').strip() == 'exit':
+    user_input = input('You: ').strip()
+    if user_input == 'exit':
         break
-    print('Bot: '+ get_response(input('You: ')))
+    else: 
+        print('Bot: ' + get_response(user_input))

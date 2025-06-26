@@ -36,14 +36,14 @@ def open_app():
     
     window_width = 800
     window_height = 600
-
+    
+    #TODO: set window size and position
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-
     splash_x = (screen_width // 2) - (window_width // 2)
     splash_y = (screen_height // 2) - (window_height // 2)
-
     root.geometry(f"{window_width}x{window_height}+{splash_x}+{splash_y}")
+    
     root.configure(bg="#D9D9D9")
     root.title("Code Sinaia 2025 - Chatbot App")
     canvas = Canvas(root, bg="#D9D9D9", height=600, width=800, bd=0, highlightthickness=0, relief="ridge")
