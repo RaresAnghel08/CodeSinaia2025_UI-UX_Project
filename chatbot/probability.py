@@ -65,7 +65,6 @@ RULES = [
     },
     # TODO: creeaza tu un raspuns custom pentru un topic ales
     # exemmplu: care este culoarea ta preferata?
-    #hint: HINT8
     {
         "keywords": ["favorite", "color"],
         "required": ["color"],
@@ -79,12 +78,10 @@ def message_probability(user_message, keywords, single_response=False, required=
     #TODO: Calculează probabilitatea mesajului message_certainty
     #pt fiecare cuvant din mesaj care apare in recognised_words
     #message_certainty este incrementat
-    #HINT: HINT6
     message_certainty = sum(1 for word in user_message if word in keywords)
     
     #TODO: Calculează match_ratio ca raportul dintre message_certainty și numărul de cuvinte din keywords
     #dacă keywords este gol, setăm match_ratio la 0
-    # HINT: HINT7
     match_ratio = message_certainty / len(keywords) if keywords else 0
     
     if required:
@@ -102,7 +99,6 @@ def check_all_messages(message):
     for rule in RULES:
         #TODO: Calculează probabilitatea mesajului pentru fiecare regulă
         #folosind funcția message_probability definită mai sus
-        # HINT: HINT5
         prob = message_probability(
             message,
             rule["keywords"],
@@ -112,8 +108,6 @@ def check_all_messages(message):
 
         #TODO: dacă prob este mai mare decât highest_prob,
         # actualizează best_response și highest_prob
-        
-        # HINT: HINT4
         if prob > highest_prob:
             highest_prob = prob
             best_response = rule["response"]
@@ -123,16 +117,13 @@ def check_all_messages(message):
         return best_response()
     
     #TODO: returneaza raspunsul, fie cel de eroare, fie cel gasit 
-    # HINT: HINT3
     return best_response if highest_prob > 0 else unknown()
 
 def get_response(user_input):
     #TODO: apeleaza functia split pentru a împărți mesajul în cuvinte 
-    # HINT: HINT1
     split_message = re.split(r'\s+|[,;?.-]\s*', user_input.lower())
     
     # apoi returneaza rezultatul obtinut folosind check_all_messages pentru a verifica mesajul
-    # HINT: HINT2
     return check_all_messages(split_message)
 
 # Ce inseamna \s+|[,;?.-]\s*?
