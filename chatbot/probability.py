@@ -120,6 +120,10 @@ def check_all_messages(message):
     return best_response if highest_prob > 0 else unknown()
 
 def get_response(user_input):
+    #TODO: Verifică dacă user_input este gol sau conține doar spații
+    if not user_input or user_input.strip() == "":
+        return "Please enter a message."
+
     #TODO: apeleaza functia split pentru a împărți mesajul în cuvinte 
     split_message = re.split(r'\s+|[,;?.-]\s*', user_input.lower())
     
