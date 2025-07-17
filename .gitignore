@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .venv/
 data
+imagini/*
+!imagini/code_sinaia_logo.png
+
