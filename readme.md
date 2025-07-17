@@ -73,21 +73,21 @@ The main data objects used in the app include:
   - `font_family`: Default font
   - `font_size`: Default font size
 
-### Example Component Structure
+### Project Structure
 
-- `main/`
+- `app/`
   - `main.py` — Entry point, launches the app
-- `ui/`
-  - `splash_screen.py` — Splash screen logic
-  - `main_app.py` — Main window and navigation
-- `chatbot/`
-  - `messages.py` — Message handling logic
-  - `probability.py` — Response probability logic
-  - `responses.py` — Predefined responses and intent mapping
-- `assets/`
-  - Images, icons, and Figma exports
-- `themes/`
-  - Color and style definitions
+  - `ui/`
+    - `splash_screen.py` — Splash screen logic
+    - `main_app.py` — Main window and navigation
+  - `chatbot/`
+    - `messages.py` — Message handling logic
+    - `probability.py` — Response probability logic
+    - `responses.py` — Predefined responses and intent mapping
+  - `assets/`
+    - Images, icons, and Figma exports
+  - `themes/`
+    - Color and style definitions
 
 ## References
 
@@ -103,9 +103,15 @@ The main data objects used in the app include:
 Run the following command from the root directory of the project:
 
 ```bash
-python -m main.main
+python app/main.py
 ```
 
-Make sure you have all dependencies installed and that you are running the command from the folder containing the `main` directory.
+Or alternatively, run as a module from the project root:
+
+```bash
+python -m app.main
+```
+
+Make sure you have all dependencies installed and that you are running the command from the project root directory.
 
 ---
