@@ -8,7 +8,6 @@ import os
 from ux.messages import send_message, clear_chat
 from ux.json_handling import load_chat, save_chat
 
-OUTPUT_PATH = Path(__file__).parent 
 ASSETS_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
 
 figma_link = "https://www.figma.com/design/cuNtrpjCHpGHbauYEfwbeJ/CodeSinaia_UI_Students?node-id=0-1&t=mcJ6qFdLuzdR6EcY-1"
