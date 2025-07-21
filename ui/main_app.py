@@ -114,6 +114,6 @@ def open_app():
     )
     button_github.place(x=709.0, y=570.0, width=61.0, height=26.0)
 
-    root.bind('<Return>', lambda event=None: on_send())
+    root.bind('<Return>', lambda event=None: on_send()) # Send message on Enter key press
     root.resizable(False, False)
     root.mainloop()
