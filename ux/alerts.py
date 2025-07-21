@@ -1,8 +1,11 @@
 import tkinter as tk
 import os
+from pathlib import Path
 
 ASSETS_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
 
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
 
 def center_window(window, width=300, height=100):
     window.update_idletasks()
@@ -16,7 +19,8 @@ def center_window(window, width=300, height=100):
     # TODO: Set the window icon
     # window.iconbitmap(os.path.join(ASSETS_PATH, "code_sinaia_logo.ico")) #there is no ico file, TODO: create one
     # Set the icon for the window as png
-    window.tk.call('wm', 'iconphoto', window._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
+    # window.tk.call('wm', 'iconphoto', window._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
+    window.iconbitmap(relative_to_assets("code_sinaia_logo.ico"))  # Ensure you have a code_sinaia_logo.ico file in the same directory
 
 #TODO: # Create alert windows for empty message
 def empty_message_alert():

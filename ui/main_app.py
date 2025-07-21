@@ -31,8 +31,8 @@ def open_app():
     
     #TODO
     # #upper left image logo
-    # root.iconbitmap('logo.ico')  # Ensure you have a logo.ico file in the same directory
-    root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
+    root.iconbitmap(relative_to_assets('code_sinaia_logo.ico'))  # Ensure you have a code_sinaia_logo.ico file in the same directory
+    # root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
     
     window_width = 800
     window_height = 600
