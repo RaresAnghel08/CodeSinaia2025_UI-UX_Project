@@ -20,7 +20,7 @@ RULES = [
     },
     {
         "keywords": ["how", "are", "you", "doing"],
-        "required": ["how"],
+        "required": ["you"],
         "response": "I'm doing fine, and you?"
     },
     {
@@ -39,7 +39,7 @@ RULES = [
         "response": get_custom_response("eat")
     },
     {
-        "keywords": ["bye", "goodbye", "see", "you"],
+        "keywords": ["bye", "goodbye", "see"],
         "response": "Goodbye! 👋",
         "single_response": True
     },

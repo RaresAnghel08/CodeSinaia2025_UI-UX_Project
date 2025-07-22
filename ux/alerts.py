@@ -21,6 +21,9 @@ def center_window(window, width=300, height=100):
     # Set the icon for the window as png
     # window.tk.call('wm', 'iconphoto', window._w, tk.PhotoImage(file=os.path.join(ASSETS_PATH, "code_sinaia_logo.png")))
     window.iconbitmap(relative_to_assets("code_sinaia_logo.ico"))  # Ensure you have a code_sinaia_logo.ico file in the same directory
+    
+    #focus on window
+    window.focus_force()
 
 #TODO: # Create alert windows for empty message
 def empty_message_alert():
