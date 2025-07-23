@@ -107,7 +107,7 @@ def open_app():
         image=button_image_github,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: webbrowser.open("https://github.com/RaresAnghel08/CodeSinaia2025_UI-UX_Project"),
+        command=lambda: webbrowser.open("https://github.com/inproted/CodeSinaia-2025"),
         relief="flat",
         bg="#D9D9D9",
         activebackground="#D9D9D9"
